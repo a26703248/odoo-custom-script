@@ -55,3 +55,15 @@ make run
 
 ---
 ### Congratulations all script done have fun!
+
+# Create Custom Module Template
+<a href="https://www.odoo.com/documentation/15.0/administration/install/install.html">Odoo Document</a>
+
+1. From the Odoo.sh editor, in a terminal
+```sh
+${your odoo-bin file path} scaffold my_module ~/src/user/
+```
+2.  from your computer, if you have an <a href="https://www.odoo.com/documentation/15.0/administration/install/install.html#setup-install-source">installation of Odoo</a>:
+```sh
+${your odoo-bin file path} scaffold my_module ~/src/odoo-addons/
+```
