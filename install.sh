@@ -14,24 +14,49 @@
 # ./odoo-install
 ################################################################################
 
-OE_USER="howard"
-OE_PROJECT_NAME="odoo-api_util"
+# OE_USER="odoo"
+# OE_PROJECT_NAME="odoo-project"
+# Set the default Odoo port (you still have to use -c /etc/odoo-server.conf for example to use this.)
+# OE_PORT="8069"
+# Split Addons and Odoo as you wish (default at same folder)
+# OE_ADDONS="${OE_PROJECT_PATH}/addons"
+
+
+OE_USER=$(whiptail --title "odoo install script" --inputbox "current username:" 10 50 root 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit -1
+fi
+OE_VERSION=$(whiptail --title "odoo install script" --inputbox "odoo version:" 10 50 16.0 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit -1
+fi
+OE_PORT=$(whiptail --title "odoo install script" --inputbox "odoo port:" 10 50 8069 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit -1
+fi
+OE_PROJECT_NAME=$(whiptail --title "odoo install script" --inputbox "odoo project name:" 10 50 demo-odoo 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit -1
+fi
+OE_ADDONS=$(whiptail --title "odoo install script" --inputbox "odoo addon path:" 10 50 /home/$OE_USER/$OE_PROJECT_NAME/addons 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit -1
+fi
 
 OE_HOME="/home/$OE_USER"
 OE_ODOO_PATH="/home/$OE_USER/$OE_PROJECT_NAME/odoo-server"
 OE_PROJECT_PATH="$OE_HOME/${OE_PROJECT_NAME}"
-# Split Addons and Odoo as you wish (default at same folder)
-OE_ADDONS="${OE_PROJECT_PATH}/addons"
 # Install by pipenv-venv
 INSTALL_BY_PIPENV_VENV="True"
 # The default port where this Odoo instance will run under (provided you use the command -c in the terminal)
 # Set to true if you want to install it, false if you don't need it or have it already installed.
 INSTALL_WKHTMLTOPDF="True"
-# Set the default Odoo port (you still have to use -c /etc/odoo-server.conf for example to use this.)
-OE_PORT="8069"
 # Choose the Odoo version which you want to install. For example: 14.0, 13.0, 12.0, 11.0 or saas-18. When using 'master' the master version will be installed.
-# IMPORTANT! This script contains extra libraries that are specifically needed for Odoo 14.0
-OE_VERSION="14.0"
 # Set this to True if you want to install the Odoo enterprise version!
 IS_ENTERPRISE="False"
 # Set this to True if you want to install Nginx!
@@ -48,8 +73,14 @@ LONGPOLLING_PORT="8072"
 # Set to "True" to install certbot and have ssl enabled, "False" to use http
 ENABLE_SSL="True"
 # Provide Email to register ssl certificate
-ADMIN_EMAIL="odoo@example.com"
+ADMIN_EMAIL="howard007892@gmail.com"
 
+if whiptail --yesno "Do you want to continue? \nhome path:${OE_HOME}\nodoo version:${OE_VERSION}\nodoo port:${OE_PORT}\nodoo projct name:${OE_PROJECT_PATH}\nodoo config path:/etc/${OE_CONFIG}\nodoo project path:${OE_PROJECT_PATH}\nodoo server:${OE_ODOO_PATH}\naddon cutsom path:${OE_ADDONS}" 30 100 ;then
+    echo "Program continues...";
+else
+    exit -1
+    echo "Program exits."
+fi
 #--------------------------------------------------
 # Echo Color
 #--------------------------------------------------
