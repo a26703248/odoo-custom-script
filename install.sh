@@ -27,7 +27,10 @@ exitstatus=$?
 if [ $exitstatus != 0 ]; then
     exit -1
 fi
-OE_VERSION=$(whiptail --title "odoo install script" --inputbox "odoo version:" 10 50 16.0 3>&1 1>&2 2>&3)
+OE_VERSION=$(whiptail --title "odoo install script" --menu "odoo version:" 10 50 3 \
+	"14.0" "odoo14" \
+	"15.0" "odoo15" \
+	"16.0" "odoo16" 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus != 0 ]; then
     exit -1
